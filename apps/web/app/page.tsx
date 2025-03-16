@@ -20,7 +20,7 @@ export default async function Home() {
     <div >
          {/* {user?.username}
         {user?.password}  */}
-        hello world1
+        hello world1 how are you
     </div>
   );
 }
