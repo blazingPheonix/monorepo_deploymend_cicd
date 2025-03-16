@@ -23,18 +23,19 @@ jobs:
           ls
           ls -a
           echo "ready to connect to server"
-          ssh -i ~/SSH_KEY ubuntu@13.234.35.28 "
+          ssh -i ~/SSH_KEY ubuntu@13.234.35.28 << 'EOF'
             cd monorepo_deploymend_cicd
             curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
-            source ~/.bashrc
+            export NVM_DIR="$HOME/.nvm"
+            [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
             nvm install v23.10.0
             nvm use v23.10.0
-            sudo npm i -g pm2
-            sudo npm i -g pnpm
+            npm i -g pm2
+            npm i -g pnpm
             git pull
             pnpm install
             pnpm run build
             pm2 restart http-server
             pm2 restart web
             pm2 restart ws-server
-          "
+          EOF
