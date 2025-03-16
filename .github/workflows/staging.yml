@@ -18,14 +18,17 @@ jobs:
           echo "ready for cicd process"
           echo "${{ toJSON(secrets) }}"
           echo "${{ secrets.SSH_PRIVATE_KEY }}"
-          echo "${{ secrets.SSH_SECRET_KEY }}" | tr -d '\r' > ~/SSH_KEY 
+          echo "${{ secrets.SSH_SECRET_KEY }}" | tr -d '\r' > ~/SSH_KEY
+          chmod 600 ~/SSH_KEY
           ls
           ls -a
           echo "ready to connect to server"
-          ssh -i ~/SSH_KEY root@13.203.159.74 
-          cd monorepo_deploymend_cicd && git pull
-          pnpm install
-          pnpm run build
-          pm2 restart http-server
-          pm2 restart web
-          pm2 restart ws-server
+          ssh -i ~/SSH_KEY root@13.203.159.74 "
+            cd monorepo_deploymend_cicd
+            git pull
+            pnpm install
+            pnpm run build
+            pm2 restart http-server
+            pm2 restart web
+            pm2 restart ws-server
+          "
