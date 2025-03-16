@@ -4,8 +4,8 @@ on:
      branches: [main]
 
 jobs:
-  uses: ubuntu-latest
   redeploy_frontend_http_ws-server:
+    runs-on: ubuntu-latest
     name: Deploying the frontend to staging cluster
 
     steps:
