@@ -25,6 +25,8 @@ jobs:
           echo "ready to connect to server"
           ssh -i ~/SSH_KEY ubuntu@13.234.35.28 "
             cd monorepo_deploymend_cicd
+            sudo npm i -g pm2
+            sudo npm i -g pnpm
             git pull
             pnpm install
             pnpm run build
