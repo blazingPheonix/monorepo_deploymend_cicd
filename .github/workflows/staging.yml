@@ -9,6 +9,11 @@ jobs:
     name: Deploying the frontend to staging cluster
 
     steps:
+      - name: Disable SSH Host Key Checking
+        run: |
+          mkdir -p ~/.ssh
+          echo "StrictHostKeyChecking no" > ~/.ssh/config
+
       - run:  |
           echo "ready for cicd process"
           echo "${{ toJSON(secrets) }}"
@@ -23,4 +28,4 @@ jobs:
           pnpm run build
           pm2 restart http-server
           pm2 restart web
-          pm2 restart ws-server 
+          pm2 restart ws-server
