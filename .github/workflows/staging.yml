@@ -10,6 +10,8 @@ jobs:
 
     steps:
       - run:  |
+          echo "ready for cicd process"
+          echo "${{ secrets.SSH_PRIVATE_KEY }}"
           echo "${{secrets.SSH_PRIVATE_KEY}}" &> ~/SSH_KEY 
           ssh -i ~/SSH_KEY root@13.203.159.74 
           cd monorepo_deploymend_cicd && git pull
