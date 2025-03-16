@@ -7,7 +7,7 @@ import {client} from "@repo/prisma/client";
 
 
 
-const server = new WebSocketServer({ port: 8080 });
+const server = new WebSocketServer({ port: 8082 });
 server.on("connection",async(socket:WebSocket)=>{
     await client.user.create({
         data:{

@@ -1,0 +1,21 @@
+name: staging deployment 
+on: 
+   push:
+     branches: [main]
+
+jobs:
+  uses: ubuntu-latest
+  redeploy_frontend_http_ws-server:
+    name: Deploying the frontend to staging cluster
+
+    steps:
+      - name: SSH Into Server
+      - run:  |
+          echo ${{secrets.SSH_PRIVATE_KEY}} &> ~/SSH_KEY 
+          ssh -i ~/SSH_KEY root@13.203.159.74 
+          cd monorepo_deploymend_cicd && git pull
+          pnpm install
+          pnpm run build
+          pm2 restart http-server
+          pm2 restart web
+          pm2 restart ws-server 
